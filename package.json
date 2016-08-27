@@ -1,0 +1,22 @@
+{
+  "name": "stabl-feed-importer",
+  "version": "1.0.0",
+  "description": "Import iTunes Collections into Firebase",
+  "main": "app.js",
+  "dependencies": {
+    "firebase": "^3.3.0",
+    "parse-rss": "^1.0.3",
+    "request-promise": "^4.1.1",
+    "rss-to-json": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stabl",
+    "firebase"
+  ],
+  "author": "Jabbslad",
+  "license": "ISC"
+}
