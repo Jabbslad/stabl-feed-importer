@@ -6,9 +6,8 @@
   "repository": "github:Jabbslad/stabl-feed-importer",
   "dependencies": {
     "firebase": "^3.3.0",
-    "parse-rss": "^1.0.3",
-    "request-promise": "^4.1.1",
-    "rss-to-json": "^1.0.2"
+    "stabl-rss-to-json": "^1.1.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {},
   "scripts": {
