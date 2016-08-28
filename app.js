@@ -26,23 +26,23 @@
                 .then(feed => {
                     var item = _.first(feed);
                     firebase.database().ref('items').push(normalize(item))
-                    .then(function (val) {
+                    .then(val => {
                         resolve(val);
-                    }).catch(function (reason) {
+                    }).catch(reason => {
                         reject(reason);
                     });
-                }).catch(function (err) {
+                }).catch(err => {
                     reject(err);
                 });
         });
     }
 
     fetch(process.argv[4])
-        .then(function (val) {
+        .then(val => {
             console.log("Added: " + val.key);
             process.exit(0);
         })
-        .catch(function (msg) {
+        .catch(msg => {
             console.log(msg);
             process.exit(1);
         });
