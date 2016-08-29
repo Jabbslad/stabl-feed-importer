@@ -1,11 +1,11 @@
 {
   "name": "stabl-feed-importer",
   "version": "1.0.0",
-  "description": "Import iTunes Collections into Firebase",
+  "description": "Import iTunes Collections into parse-server",
   "main": "app.js",
   "repository": "github:Jabbslad/stabl-feed-importer",
   "dependencies": {
-    "firebase": "^3.3.0",
+    "parse": "^1.9.1",
     "stabl-rss-to-json": "^1.1.0",
     "underscore": "^1.8.3"
   },
@@ -15,7 +15,7 @@
   },
   "keywords": [
     "stabl",
-    "firebase"
+    "parse"
   ],
   "author": "Jabbslad",
   "license": "MIT"
