@@ -1,6 +1,6 @@
 # stabl-feed-importer
 
-Import iTunes Collections into Firebase
+Import iTunes Collections into [parse-server](https://github.com/ParsePlatform/parse-server).
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install
 
 ## Usage
 
-`node app.js <auth path> <db address> <itunes url>`
+`node app.js <user> <pass> <app id> <server url> <itunes collection id>`
 
 ## License
 
