@@ -14,7 +14,7 @@
 
     function save(item) {
         return Parse.User.logIn(process.argv[2], process.argv[3]).then(user => {
-            var PodcastItem = Parse.Object.extend("PodcastItem");
+            var PodcastItem = Parse.Object.extend("NewPodcastItem");
             var podcastItem = new PodcastItem();
             return podcastItem.save(item, {sessionToken : user.getSessionToken()});
         })
@@ -22,20 +22,42 @@
 
     function fetch(id) {
         return new Promise((resolve, reject) => {
-            rss.feedUrlFromItunesCollectionId(id)
-                .then(rss.parseFeedUrl)
-                .then(feed => {
-                    var item = _.first(feed);
-                    resolve(save(item));
+            rss.feedFromItunesCollectionId(id)
+                .then(collection => {
+                    resolve(collection);
                 })
                 .catch(reject);
         });
     }
 
+    function merge(obj1, obj2) {
+        for (var attrname in obj2) { 
+            obj1[attrname] = obj2[attrname]; 
+        }
+        return obj1;
+    }
+
+    function construct(collection) {
+        return new Promise((resolve, reject) => {
+            rss.parseFeedUrl(collection.feedUrl)
+                .then(feed => {
+                    resolve(merge(collection, _.first(feed)));
+                })
+                .catch(msg => {
+                    reject(msg);
+                });
+        });
+    }
+
     fetch(process.argv[6])
-        .then(val => {
-            console.log(val);
-            process.exit(0);
+        .then(collection => {
+            return construct(collection);
+        })
+        .then(feed => {
+            return save(feed);
+        })
+        .then(result => {
+            console.log(result);
         })
         .catch(msg => {
             console.log(msg);
