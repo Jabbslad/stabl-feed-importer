@@ -14,15 +14,15 @@
 
     function save(item) {
         return Parse.User.logIn(process.argv[2], process.argv[3]).then(user => {
-            var PodcastItem = Parse.Object.extend("NewPodcastItem");
+            var PodcastItem = Parse.Object.extend("PodcastItem");
             var podcastItem = new PodcastItem();
             return podcastItem.save(item, {sessionToken : user.getSessionToken()});
         })
     }
 
-    function fetch(id) {
+    function fetch(id, params='&country=gb') {
         return new Promise((resolve, reject) => {
-            rss.feedFromItunesCollectionId(id)
+            rss.feedFromItunesCollectionId(id + params)
                 .then(collection => {
                     resolve(collection);
                 })
