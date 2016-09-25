@@ -2,10 +2,11 @@
     "use strict";
     const rss = require("stabl-rss-to-json");
     const Parse = require("parse/node");
+    const restify = require('restify');
     const _ = require("underscore");
 
-    if (process.argv.length !== 7) {
-        console.log("usage: node app.js <user> <pass> <app id> <server url> <itunes collection id>");
+    if (process.argv.length !== 6) {
+        console.log("usage: node app.js <user> <pass> <app id> <server url>");
         process.exit(1);
     }
 
@@ -49,7 +50,10 @@
         });
     }
 
-    fetch(process.argv[6])
+    function respond(req, res, next) {
+        var collectionId = req.params.name;
+        console.log('adding: ' + collectionId)
+        fetch(collectionId)
         .then(collection => {
             return construct(collection);
         })
@@ -57,10 +61,19 @@
             return save(feed);
         })
         .then(result => {
-            console.log(result);
+            console.log('added: ' + JSON.stringify(result));
+            res.send('OK');
         })
         .catch(msg => {
-            console.log(msg);
-            process.exit(1);
+            res.send(msg);
         });
+        return next();
+    }
+
+    var server = restify.createServer();
+    server.get('/add/:name', respond);
+
+    server.listen(8080, function() {
+        console.log('%s listening at %s', server.name, server.url);
+    });
 })();
