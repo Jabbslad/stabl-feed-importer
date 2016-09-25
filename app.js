@@ -62,9 +62,10 @@
         })
         .then(result => {
             console.log('added: ' + JSON.stringify(result));
-            res.send('{"result": "OK"}');
+            res.send({"result": "OK"});
         })
         .catch(msg => {
+            console.log(msg);
             res.send(msg);
         });
         return next();
